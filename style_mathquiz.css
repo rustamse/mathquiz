@@ -1,0 +1,33 @@
+body {
+	background-color: #ffffff;
+	font-family: "Arial";
+}
+
+p {
+	font-size: 20px;
+}
+
+#score {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#field {
+	font-size: 48px;
+	border-top: 0px none black;
+	border-left: 0px none black;
+	border-right: 0px none black;
+	border-bottom: 2px solid black;
+}
+
+#button {
+	font-size: 16px;
+	color: white;
+	font-weight: bold;
+	background-color: #66ccff;
+	border: 2px solid #0099cc;
+}
+
+#question {
+	font-size: 48px;
+}
