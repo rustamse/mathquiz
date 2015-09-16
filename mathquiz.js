@@ -29,7 +29,7 @@ function refreshQuestion(output) {
 function checker() {
 	var answer = document.getElementById("field").value;
 	if(answer == key[3]) {
-		document.getElementById("check").innerHTML = "CORRECT!";
+		document.getElementById("check").innerHTML = "CORRECT! GOOD JOB! NOW TRY THIS ONE.";
 		score += 1;
 		if(score == 10) {
 			end();
