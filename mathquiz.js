@@ -1,6 +1,6 @@
 "use strict";
 
-var key = {
+var question = {
     operator: "+",
     leftValue: 0,
     rightValue: 0,
@@ -8,41 +8,41 @@ var key = {
 };
 var score = 0;
 
-generateNewQuestion(key);
+generateNewQuestion(question);
 
-function generateNewQuestion(legend) {
-    legend.operator = Math.random() > 0.5 ? "+" : "-";
-
-    if (legend.operator == "+") {
-        legend.leftValue = Math.floor(Math.random() * 20) + 1;
-        legend.rightValue = Math.floor(Math.random() * 20) + 1;
-        legend.expectedResult = legend.leftValue + legend.rightValue;
-        printQuestion(legend);
-        return legend;
-    } else {
-        legend.leftValue = Math.floor(Math.random() * 30) + 10;
-        legend.rightValue = Math.floor(Math.random() * legend.leftValue) + 1;
-        legend.expectedResult = legend.leftValue - legend.rightValue;
-        printQuestion(legend);
-        return legend;
+function generateNewQuestion(question) {
+    if (Math.random() > 0.5) {
+        question.operator = "+";
+        question.leftValue = Math.floor(Math.random() * 20) + 1;
+        question.rightValue = Math.floor(Math.random() * 20) + 1;
+        question.expectedResult = question.leftValue + question.rightValue;
     }
+    else {
+        question.operator = "-";
+        question.leftValue = Math.floor(Math.random() * 30) + 10;
+        question.rightValue = Math.floor(Math.random() * question.leftValue) + 1;
+        question.expectedResult = question.leftValue - question.rightValue;
+    }
+
+    printQuestion(question);
+    return question;
 }
 
-function printQuestion(legend) {
-    document.getElementById("question").innerHTML = legend.leftValue + " " + legend.operator + " " + legend.rightValue + " = ";
+function printQuestion(question) {
+    document.getElementById("question").innerHTML = question.leftValue + " " + question.operator + " " + question.rightValue + " = ";
     document.getElementById("field").value = "";
 }
 
 function onSubmitClick() {
     var answer = document.getElementById("field").value;
-    if (answer == key.expectedResult) {
+    if (answer == question.expectedResult) {
         document.getElementById("check").innerHTML = "CORRECT! GOOD JOB! NOW TRY THIS ONE.";
         score += 1;
         if (score == 10) {
             finishQuestons();
         } else {
             document.getElementById("score").innerHTML = score;
-            generateNewQuestion(key);
+            generateNewQuestion(question);
         }
     } else {
         document.getElementById("check").innerHTML = "WRONG. TRY AGAIN!";
