@@ -1,41 +1,54 @@
 "use strict";
 
-var question = {
-    operator: "+",
-    leftValue: 0,
-    rightValue: 0,
-    expectedResult: 0
-};
+class Question {
+    constructor() {
+
+    }
+
+    generateNewExpression() {
+        if (Math.random() > 0.5) {
+            this.operator = "+";
+            this.leftValue = Math.floor(Math.random() * 20) + 1;
+            this.rightValue = Math.floor(Math.random() * 20) + 1;
+        }
+        else {
+            this.operator = "-";
+            this.leftValue = Math.floor(Math.random() * 30) + 10;
+            this.rightValue = Math.floor(Math.random() * this.leftValue) + 1;
+        }
+    }
+
+    calcExpressionResult() {
+        if (this.operator === "+")
+            return this.leftValue + this.rightValue;
+        else
+            return this.leftValue - this.rightValue;
+    }
+
+    toString() {
+        return this.leftValue + " " + this.operator + " " + this.rightValue + " = ";
+    }
+}
+
+var question = new Question();
 var score = 0;
 
 generateNewQuestion(question);
 
 function generateNewQuestion(question) {
-    if (Math.random() > 0.5) {
-        question.operator = "+";
-        question.leftValue = Math.floor(Math.random() * 20) + 1;
-        question.rightValue = Math.floor(Math.random() * 20) + 1;
-        question.expectedResult = question.leftValue + question.rightValue;
-    }
-    else {
-        question.operator = "-";
-        question.leftValue = Math.floor(Math.random() * 30) + 10;
-        question.rightValue = Math.floor(Math.random() * question.leftValue) + 1;
-        question.expectedResult = question.leftValue - question.rightValue;
-    }
-
+    question.generateNewExpression();
     printQuestion(question);
     return question;
 }
 
 function printQuestion(question) {
-    document.getElementById("question").innerHTML = question.leftValue + " " + question.operator + " " + question.rightValue + " = ";
+    document.getElementById("question").innerHTML = question.toString();
     document.getElementById("field").value = "";
 }
 
 function onSubmitClick() {
     var answer = document.getElementById("field").value;
-    if (answer == question.expectedResult) {
+    if (answer == question.calcExpressionResult()) {
         document.getElementById("check").innerHTML = "CORRECT! GOOD JOB! NOW TRY THIS ONE.";
         score += 1;
         if (score == 10) {
